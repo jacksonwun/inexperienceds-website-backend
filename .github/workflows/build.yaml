@@ -1,0 +1,25 @@
+name: Build Docker Container
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+  push:
+    branches: [ "master" ]
+
+jobs:
+  test_django:
+    uses: jacksonwun/${{ github.event.repository.name }}/.github/workflows/test-django.yaml@master
+    secrets:
+      ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
+      REDIS_DATABASE_PORT: ${{ secrets.REDIS_DATABASE_PORT }}
+      FIREBASE_TYPE: ${{ secrets.FIREBASE_TYPE }}
+      FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+      FIREBASE_PRIVATE_KEY_ID: ${{ secrets.FIREBASE_PRIVATE_KEY_ID }}
+      FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+      FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+      FIREBASE_CLIENT_ID: ${{ secrets.FIREBASE_CLIENT_ID }}
+      FIREBASE_AUTH_URI: ${{ secrets.FIREBASE_AUTH_URI }}
+      FIREBASE_TOKEN_URI: ${{ secrets.FIREBASE_TOKEN_URI }}
+      FIREBASE_AUTH_PROVIDER_X509_CERT_URL: ${{ secrets.FIREBASE_AUTH_PROVIDER_X509_CERT_URL }}
+      FIREBASE_CLIENT_X509_CERT_URL: ${{ secrets.FIREBASE_CLIENT_X509_CERT_URL }}
