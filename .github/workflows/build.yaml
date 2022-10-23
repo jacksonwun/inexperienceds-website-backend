@@ -9,7 +9,7 @@ on:
 
 jobs:
   test_django:
-    uses: jacksonwun/${{ github.event.repository.name }}/.github/workflows/test-django.yaml@master
+    uses: jacksonwun/${{ github.repository }}/.github/workflows/test-django.yaml@master
     secrets:
       ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
       REDIS_DATABASE_PORT: ${{ secrets.REDIS_DATABASE_PORT }}
