@@ -84,7 +84,7 @@ jobs:
 
       - name: Install Requirements
         run: |
-          pip install -r ${{ github.event.repository.name }}/requirements.txt
+          pip install -r inexperienceds/requirements.txt
       - name: Run migration
         env:
           DEBUG: 1
@@ -97,7 +97,7 @@ jobs:
           POSTGRES_PORT: 5432
           REDIS_DATABASE_PORT: 6379
         run: |
-          cd ${{ github.event.repository.name }} && python manage.py migrate auth && python manage.py migrate --run-syncdb && python manage.py makemigrations
+          cd inexperienceds && python manage.py migrate auth && python manage.py migrate --run-syncdb && python manage.py makemigrations
       - name: Run Tests
         env:
           DEBUG: 1
@@ -110,4 +110,4 @@ jobs:
           POSTGRES_PORT: 5432
           REDIS_DATABASE_PORT: 6379
         run: |
-          cd ${{ github.event.repository.name }} && python manage.py migrate --run-syncdb && python manage.py test
+          cd inexperienceds && python manage.py migrate --run-syncdb && python manage.py test
