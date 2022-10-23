@@ -9,6 +9,7 @@ WORKDIR /app
 RUN python -m venv /opt/venv
 
 RUN /opt/venv/bin/pip install pip --upgrade \
+    && /opt/venv/bin/pip install psycopg2-binary \
     && /opt/venv/bin/pip install -r requirements.txt \
     && chmod +x entrypoint.sh \
     && chmod +x migrate.sh
