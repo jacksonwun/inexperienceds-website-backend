@@ -30,7 +30,9 @@ if str(os.getenv("DEBUG")) == '1':
     CORS_ALLOW_ALL_ORIGINS = True
 else:
     DEBUG = False
-    CORS_ALLOW_ALL_ORIGINS = True
+    if os.getenv("FRONTEND_URL"):
+        CORS_ALLOWED_ORIGINS = [os.getenv("FRONTEND_URL"), os.getenv("BACKEND_URL")]
+        CSRF_TRUSTED_ORIGINS = [os.getenv("FRONTEND_URL"), os.getenv("BACKEND_URL")]
 if str(os.getenv("RAILWAY")) == '1':
     RAILWAY = True
 else:
