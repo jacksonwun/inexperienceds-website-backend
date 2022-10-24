@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from rest_framework.reverse import reverse
 from .models import Author, Tag, Language, Article
+
 
 class LanguageSerializer(serializers.ModelSerializer):
 
@@ -9,7 +9,8 @@ class LanguageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Language
-        fields =['language',]
+        fields = ['language', ]
+
 
 class TagSerializer(serializers.ModelSerializer):
 
@@ -18,7 +19,8 @@ class TagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tag
-        fields =['tag',]
+        fields = ['tag', ]
+
 
 class AuthorSerializer(serializers.ModelSerializer):
 
@@ -27,12 +29,14 @@ class AuthorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Author
-        fields =['author_name',]
+        fields = ['author_name', ]
+
 
 class ArticleSerializer(serializers.ModelSerializer):
     author = AuthorSerializer(read_only=True)
     tags = TagSerializer(read_only=True, many=True)
     language = LanguageSerializer(read_only=True, many=True)
+
     class Meta:
         model = Article
         fields = ('__all__')

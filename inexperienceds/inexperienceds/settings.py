@@ -46,7 +46,7 @@ INTERNAL_IPS = ['127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
-    'ckeditor', 
+    'ckeditor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     # 3rd Parties
     "corsheaders",
     'rest_framework',
-    "debug_toolbar", 
+    "debug_toolbar",
 
     # Owned
     'blog',
@@ -68,7 +68,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',  
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -113,8 +113,8 @@ if RAILWAY:
     }
     CHANNEL_LAYERS = {
         "default": {
-            "BACKEND": 'channels_redis.core.RedisChannelLayer', 
-            'CONFIG':{
+            "BACKEND": 'channels_redis.core.RedisChannelLayer',
+            'CONFIG': {
                 'hosts': [RAILWAY_REDIS_URL],
             }
         }

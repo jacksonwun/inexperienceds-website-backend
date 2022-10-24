@@ -1,1 +1,1 @@
-web: python inexperienceds/manage.py migrate auth && python inexperienceds/manage.py migrate --run-syncdb && python inexperienceds/manage.py makemigrations && python inexperienceds/manage.py migrate && gunicorn --pythonpath inexperienceds inexperienceds.wsgi
+web: python inexperienceds/manage.py collectstatic && python inexperienceds/manage.py migrate --run-syncdb && python inexperienceds/manage.py makemigrations && python inexperienceds/manage.py migrate && gunicorn --pythonpath inexperienceds inexperienceds.wsgi
