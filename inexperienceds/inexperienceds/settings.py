@@ -28,6 +28,8 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 if str(os.getenv("DEBUG")) == '1':
     DEBUG = True
     CORS_ALLOW_ALL_ORIGINS = True
+    ALLOWED_HOSTS = ['*']
+    INTERNAL_IPS = ['127.0.0.1']    
 else:
     DEBUG = False
     if os.getenv("FRONTEND_URL"):
@@ -37,11 +39,6 @@ if str(os.getenv("RAILWAY")) == '1':
     RAILWAY = True
 else:
     RAILWAY = False
-
-
-ALLOWED_HOSTS = ['*']
-INTERNAL_IPS = ['127.0.0.1']
-
 
 # Application definition
 
