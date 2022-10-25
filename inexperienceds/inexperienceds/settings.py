@@ -29,12 +29,14 @@ if str(os.getenv("DEBUG")) == '1':
     DEBUG = True
     CORS_ALLOW_ALL_ORIGINS = True
     ALLOWED_HOSTS = ['*']
-    INTERNAL_IPS = ['127.0.0.1']    
+    INTERNAL_IPS = ['*','127.0.0.1','localhost']    
 else:
     DEBUG = False
-    if os.getenv("FRONTEND_URL"):
-        CORS_ALLOWED_ORIGINS = [os.getenv("FRONTEND_URL"), os.getenv("BACKEND_URL")]
-        CSRF_TRUSTED_ORIGINS = [os.getenv("FRONTEND_URL"), os.getenv("BACKEND_URL")]
+    if os.getenv("ALLOWED_HOSTS"):
+        INTERNAL_IPS = os.environ.get('INTERNAL_IPS').split(",")
+        ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
+        CORS_ALLOWED_ORIGINS = os.environ.get('CORS_ALLOWED_ORIGINS').split(",")
+        CSRF_TRUSTED_ORIGINS = os.environ.get('CSRF_TRUSTED_ORIGINS').split(",")
 if str(os.getenv("RAILWAY")) == '1':
     RAILWAY = True
 else:
@@ -51,9 +53,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # 3rd Parties
+    # Third Parties
+    'storages',
     "corsheaders",
     'rest_framework',
+    'rest_framework_simplejwt',
     "debug_toolbar",
 
     # Owned
@@ -151,9 +155,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# AWS
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME')
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.%s.amazonaws.com' % (AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME)
+AWS_LOCATION = os.getenv('AWS_LOCATION')
 
+STATIC_URL = 'static/'
+TEMP = os.path.join(BASE_DIR, 'temp')
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+FILE_UPLOAD_HANDLERS = (
+    "django_excel.ExcelMemoryFileUploadHandler",
+    "django_excel.TemporaryExcelFileUploadHandler",
+)
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
