@@ -28,6 +28,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 if str(os.getenv("DEBUG")) == '1':
     DEBUG = True
     CORS_ALLOW_ALL_ORIGINS = True
+    CSRF_TRUSTED_ORIGINS = ['*']
     ALLOWED_HOSTS = ['*']
     INTERNAL_IPS = ['*','127.0.0.1','localhost']    
 else:
